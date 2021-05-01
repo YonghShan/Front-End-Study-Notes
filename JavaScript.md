@@ -560,11 +560,11 @@ header-includes:
   <html>
    <head>
     <title> new document </title>  
-    <meta http-equiv="Content-Type" content="text/html; charset=gbk"/>   
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>   
     <script type="text/javascript">
       function openWindow(){
          // 新窗口打开时弹出确认框，是否打开
-          var web = confirm("你是否要打开网站");
+          var web = confirm("你是否要打开网站？");
           if (web == true) {
               // 通过输入对话框，确定打开的网址，默认为 http：//www.imooc.com/
               var url = prompt("请输入网址","http：//www.imooc.com/");
@@ -623,9 +623,9 @@ header-includes:
 
   **1. 元素节点：**上图中`<html>`、`<body>`、`<p>`等都是元素节点，即标签。
 
-  **2. 文本节点:**向用户展示的内容，如`<li>...</li>`中的JavaScript、DOM、CSS等文本。
+  **2. 文本节点：**向用户展示的内容，如`<li>...</li>`中的JavaScript、DOM、CSS等文本。
 
-  **3. 属性节点:**元素属性，如`<a>`标签的链接属性href="http://www.imooc.com"。
+  **3. 属性节点：**元素属性，如`<a>`标签的链接属性href="http://www.imooc.com"。
 
   **看下面代码:**
 
@@ -637,17 +637,345 @@ header-includes:
 
 + 3-2 通过ID获取元素
 
+  学过HTML/CSS样式，都知道，网页由标签将信息组织起来，而标签的id属性值是唯一的，就像是每人有一个身份证号一样，只要通过身份证号就可以找到相对应的人。那么在网页中，我们通过id先找到标签，然后进行操作。
+
+  **语法:**
+
+  ```javascript
+   document.getElementById("id") 
+  ```
+
+  **看看下面代码:**
+
+  ```html
+  <!DOCTYPE html>
+  <html>
+   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>   
+    <title>获取元素</title>  
+    <script type="text/javascript">
+      var mye = document.getElementById("con"); // 获取元素存储在变量mye中
+      document.write(mye); // 输出变量mye
+    </script> 
+   </head> 
+   <body> 
+  	  <h3>Hello</h3>
+      <p id="con">I love JavaScript</p>
+   </body>
+  </html>
+  ```
+
+  **结果：**null或[object HTMLParagraphElement]
+
+  ![](http://img.mukewang.com/52e4c6080001734c03800275.jpg)
+
+  **注：获取的元素是一个对象，如想对元素进行操作，我们要通过它的属性或方法。**
+
 + 3-3 innerHTML属性
+
+  innerHTML 属性用于获取或替换 HTML 元素的内容。
+
+  **语法:**
+
+  ```javascript
+  Object.innerHTML
+  ```
+
+  **注意:**
+
+  1.Object是获取的元素对象，如通过document.getElementById("ID")获取的元素。
+
+  2.注意书写，innerHTML区分大小写。
+
+  **我们通过id="con"获取<p> 元素，并将元素的内容输出和改变元素内容，代码如下:**
+
+  ```html
+  <!DOCTYPE html>
+  <html>
+   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>   
+    <title>innerHTML</title>  
+   </head> 
+   <body> 
+     <p id="con">Hello World!</p>
+     <script type="text/javascript">
+       var mycon = document.getElementById("con"); // 获取元素存储在变量mye中
+       document.write("p标签原始内容：" + mycon.innerHTML + "<br />"); // 输入元素内容
+       mycon.innerHTML = "New text!";
+       document.write("p标签修改后的内容：" + mycon.innerHTML);
+     </script> 
+   </body>
+  </html>
+  ```
+
+  **结果:**
+
+  ![](http://img.mukewang.com/52e4cb5c000187ce03740251.jpg)
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>innerHTML</title>
+    </head>
+    <body>
+      <h2 id="con">javascript</H2>
+      <p> JavaScript是一种基于对象、事件驱动的简单脚本语言，嵌入在HTML文档中，由浏览器负责解释和执行，在网页上产生动态的显示效果并实现与用户交互功能。</p>
+      <script type="text/javascript">
+        var mychar=document.getElementById("con");
+        document.write("原标题:"+mychar.innerHTML+"<br>"); //输出原h2标签内容
+        mychar.innerHTML="Hello World!";
+        document.write("修改后的标题:"+mychar.innerHTML); //输出修改后h2标签内容
+      </script>
+    </body>
+  </html>
+  ```
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/js3-3.png){}
 
 + 3-4 改变HTML样式
 
+  HTML DOM 允许 JavaScript 改变 HTML 元素的样式。如何改变 HTML 元素的样式呢？
+
+  **语法:**
+
+  ```javascript
+  Object.style.property=new style;
+  ```
+
+  **注意：**Object是获取的元素对象，如通过document.getElementById("id")获取的元素。
+
+  **基本属性表（property）:**
+
+  ![](http://img.mukewang.com/52e4d4240001dd6c04850229.jpg)
+
+  **注意:**该表只是一小部分CSS样式属性，其它样式也可以通过该方法设置和修改。
+
+  **看看下面的代码:**
+
+  改变 <p> 元素的样式，将颜色改为红色，字号改为20,背景颜色改为蓝：
+
+  ```html
+  <p id="pcon">Hello World!</p>
+  <script>
+     var mychar = document.getElementById("pcon");
+     mychar.style.color="red";
+     mychar.style.fontSize="20";
+     mychar.style.backgroundColor ="blue";
+  </script>
+  ```
+
+  **结果:**
+
+  ![](http://img.mukewang.com/52e4d6ae000177d203770253.jpg)
+
 + 3-5 显示和隐藏（display属性）
 
+  网页中经常会看到显示和隐藏的效果，可通过display属性来设置。
+
+  **语法：**
+
+  ```javascript
+  Object.style.display = value
+  ```
+
+  **注意:**Object是获取的元素对象，如通过document.getElementById("id")获取的元素。
+
+  **value取值：**
+
+  ![](http://img.mukewang.com/52e4dba5000179da04110095.jpg)
+
+  **看看下面代码:**
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+      <title>display</title>
+      <script type="text/javascript">
+        function hidetext() {
+          document.getElementById("con").style.display="none";
+        }
+        function showtext() {
+          document.getElementById("con").style.display="block";
+        }
+      </script>
+    </head>
+    <body>
+      <h1>Javascript</h1>
+      <p id="con">作为一个Web开发师来说，如果你想要提供漂亮的网页、令用户满意的上网体验，JavaScript是必不可少的工具。</p>
+      <form>
+        <input type="button" onclick="hidetext()" value="不显示段落内容" />
+        <input type="button" onclick="showtext()" value="显示段落内容" />
+      </form>
+    </body>
+  </html>
+  ```
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/js3-5.png){}
+
 + 3-6 控制类名（className属性）
+
+  className 属性设置或返回元素的class 属性。
+
+  **语法：**
+
+  ```javascript
+  object.className = classname
+  ```
+
+  **作用:**
+
+  1. 获取元素的class 属性
+
+  2. 为网页内的某个元素指定一个css样式来更改该元素的外观
+
+  **看看下面代码，获得 <p> 元素的 class 属性和改变className：**
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>className属性</title>
+    <style>
+        body{font-size:16px;}
+        .one{
+          border:1px solid #eee;
+          width:230px;
+          height:50px;
+          background:#ccc;
+          color:red;
+        }
+        .two{
+          border:1px solid #ccc;
+          width:230px;
+          height:50px;
+          background:#9CF;
+          color:blue;
+      	}
+      </style>
+    </head>
+    
+    <body>
+        <p id="p1" > JavaScript使网页显示动态效果并实现与用户交互功能。</p>
+        <input type="button" value="添加样式" onclick="add()"/>
+      	<p id="p2" class="one">JavaScript使网页显示动态效果并实现与用户交互功能。</p>
+        <input type="button" value="更改外观" onclick="modify()"/>
+  
+        <script type="text/javascript">
+           function add(){
+              var p1 = document.getElementById("p1");
+              p1.className="one";
+           }
+           function modify(){
+              var p2 = document.getElementById("p2");
+              p2.className="two";
+           }
+        </script>
+    </body>
+  </html>
+  ```
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/js3-6-1.png){}
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/js3-6-2.png){}
 
 ### 4 编程挑战
 
 + 4-1 编程挑战
+
+  请编写"改变颜色"、"改变宽高"、"隐藏内容"、"显示内容"、"取消设置"的函数，点击相应按钮执行相应操作，点击"取消设置"按钮后，提示是否取消设置，如是执行操作，否则不做操作。
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+    <head>
+    <meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+    <title>javascript</title>
+    <style type="text/css">
+      body{font-size:12px;}
+      #txt{
+          height:400px;
+          width:600px;
+        	border:#333 solid 1px;
+       		padding:5px;
+      }
+      p{
+        line-height:18px;
+        text-indent:2em;
+      }
+    </style>
+    </head>
+    
+    <body>
+      <h2 id="con">JavaScript课程</h2>
+      <div id="txt"> 
+         <h5>JavaScript为网页添加动态效果并实现与用户交互的功能。</h5>
+            <p>1. JavaScript入门篇，让不懂JS的你，快速了解JS。</p>
+            <p>2. JavaScript进阶篇，让你掌握JS的基础语法、函数、数组、事件、内置对象、BOM浏览器、DOM操作。</p>
+            <p>3. 学完以上两门基础课后，在深入学习JavaScript的变量作用域、事件、对象、运动、cookie、正则表达式、ajax等课程。</p>
+      </div>
+      <form>
+      <!--当点击相应按钮，执行相应操作，为按钮添加相应事件-->
+        <input type="button" value="改变颜色" onclick="changeColor()">  
+        <input type="button" value="改变宽高" onclick="changeSize()">
+        <input type="button" value="隐藏内容" onclick="hideText()">
+        <input type="button" value="显示内容" onclick="showText()">
+        <input type="button" value="取消设置" onclick="reSet()">
+      </form>
+      <script type="text/javascript">
+        var mycon = document.getElementById("con");
+        var mytxt = document.getElementById("txt");
+    		
+        //定义"改变颜色"的函数
+        function changeColor() {
+            mycon.style.color="red";
+            mycon.style.backgroundColor="#ccc";
+            mytxt.style.color="red";
+            mytxt.style.backgroundColor="#ccc";
+        }
+  
+    		//定义"改变宽高"的函数
+        function changeSize() {
+            //mycon.style.width="300px";
+            //mycon.style.height="300px";
+            mytxt.style.width="300px";
+            mytxt.style.height="300px";
+        }
+  
+    		//定义"隐藏内容"的函数
+        function hideText() {
+            mycon.style.display="none";
+            mytxt.style.display="none";
+        }
+  
+    		//定义"显示内容"的函数
+        function showText() {
+            mycon.style.display="block";
+            mytxt.style.display="block";
+        }
+  
+    		//定义"取消设置"的函数
+        function reSet() {  // reset是关键词
+            var tmp = confirm("是否确定重置？");
+            if (tmp == true) {
+                //mycon.style="none";
+                //mytxt.style="none";
+                mycon.removeAttribute('style');
+                mytxt.removeAttribute('style');
+            } else {
+              alert("Wise Choice!");
+            }
+        }
+      </script>
+    </body>
+  </html>
+  ```
+
+  
 
 
 
