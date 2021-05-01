@@ -1,0 +1,1 @@
+pandoc --pdf-engine=xelatex -V CJKmainfont="Heiti SC" --highlight-style tango -V geometry:margin=1in -H head.tex Study_Notes.md -o Notes.pdf
