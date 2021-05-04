@@ -1,0 +1,126 @@
+body {
+	background-image: url("./background.JPG");
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(0.3);
+	height: 500px;
+}
+
+.gmail-images {
+	display: flex;
+	justify-content: flex-end;
+}
+
+nav {
+	margin: 10px;
+}
+
+nav a {
+	margin: 5px;
+	color: white;
+	padding: 5px 10px;
+	border: 2px solid;
+	border-color: white;
+	cursor: pointer;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;   /*flex默认左右排列*/
+	justify-content: center;
+	align-items: center;
+	height: calc(100% - 38px); /*通过inspect发现nav的高度是38px*/
+	margin: 30px;
+}
+
+.main .search {
+	display: flex;
+	margin: 25px;
+}
+
+input {
+	width: 500px;
+	height: 40px
+}
+
+ul li a{
+	color: white;
+}
+
+.customize {
+	display: flex;
+	justify-content: flex-end;
+	color: white;
+	margin: 50px;
+}
+
+.customize a {
+	border-color: grey;
+	border: 2px solid;
+	border-radius: 6px;
+}
+
+.customize a:hover {  /*:hover 伪类  能够根据状态改变元素样式*/
+	color: red;
+	font-size: 20px;
+}
+
+/* Popup container */
+.popup {
+  color: white;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin: 20px;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden; /*visibility 属性规定元素是否可见。 提示：即使不可见的元素也会占据页面上的空间。 请使用"display" 属性来创建不占据页面空间的不可见元素。*/
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1; /*z-index 属性设定了一个定位元素及其后代元素或 flex 项目的 z-order。 当元素之间重叠的时候， z-index 较大的元素会覆盖较小的元素在上层进行显示。*/
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after { /*::after 伪元素  对被选择元素的特定部分修改样式*/
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+
+
+
+
