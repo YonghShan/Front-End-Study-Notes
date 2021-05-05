@@ -1770,11 +1770,1595 @@ header-includes:
 
        **注意：**sort(sortNum)中的sortNum是不带括号的。带括号的是把返回值赋值给事件，不带括号的是把函数体所在地址位置赋值给事件。再看myarr.sort(sortNum)：它的语法定义：arrayObject.sort(方法函数)，里面必须是一个函数，而不是一个返回值或者别的。
 
++ 7-23 编程练习
+
+  某班的成绩出来了，现在老师要把班级的成绩打印出来。
+
+  **效果图:**
+
+  ```javascript
+  XXXX年XX月X日 星期X--班级总分为:81
+  ```
+
+  **格式要求：**
+
+  1、显示打印的日期。 格式为类似“XXXX年XX月XX日 星期X” 的当前的时间。
+
+  2、计算出该班级的平均分（保留整数）。
+
+  ```javascript
+  <!DOCTYPE  HTML>
+  <html >
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>系好安全带,准备启航</title>
+  <script type="text/javascript">
+    //通过javascript的日期对象来得到当前的日期，并输出。
+    var currdate = new Date();
+    document.write(currdate.getFullYear() + "年");
+    document.write(currdate.getMonth()+1 + "月");
+    document.write(currdate.getDate() + "日");
+    document.write("星期" + currdate.getDay() + "--");
+    
+    //成绩是一长窜的字符串不好处理，找规律后分割放到数组里更好操作哦
+    var scoreStr = "小明:87;小花:81;小红:97;小天:76;小张:74;小小:94;小西:90;小伍:76;小迪:64;小曼:76";
+    var scoreArr = scoreStr.split(";");
+  
+    //从数组中将成绩撮出来，然后求和取整，并输出。
+    var total = 0;
+    for(var i=0; i<scoreArr.length; i++) {
+        var people = scoreArr[i].split(":");
+        var score = people[1];
+        total = total + parseInt(score);
+    }
+    var average = total / scoreArr.length;
+    document.write("班级总分为:" + Math.round(average));
+  </script>
+  </head>
+  <body>
+  </body>
+  </html>
+  ```
+
 
 
 ### 8 浏览器对象
 
++ 8-1 window对象
+
+  window对象是BOM的核心，window对象指当前的浏览器窗口。
+
+  **window对象方法:**
+
+  ![](http://img1.sycdn.imooc.com/535483720001a54506670563.jpg)
+
+  **注意:**在JavaScript基础篇中，已讲解了部分属性，window对象重点讲解计时器。
+
++ 8-2 JavaScript计时器
+
+  在JavaScript中，我们可以在设定的时间间隔之后来执行代码，而不是在函数被调用后立即执行。
+  **计时器类型：**
+  一次性计时器：仅在指定的延迟时间之后触发一次。
+  间隔性触发计时器：每隔一定的时间间隔就触发一次。
+  **计时器方法：**
+
+  ![](http://img1.sycdn.imooc.com/56976e1700014fc504090143.jpg)
+
+  + setInterval()
+
+    在执行时,从载入页面后每隔指定的时间执行代码。
+
+    **语法:**
+
+    ```javascript
+    setInterval(代码,交互时间);
+    ```
+
+    **参数说明：**
+
+    1. 代码：要调用的函数或要执行的代码串。
+
+    2. 交互时间：周期性执行或调用表达式之间的时间间隔，以毫秒计（1s=1000ms）。
+
+    **返回值:**
+
+    一个可以传递给 clearInterval() 从而取消对"代码"的周期性执行的值。
+
+    **调用函数格式(**假设有一个clock()函数**):**
+
+    ```javascript
+    setInterval("clock()",1000)
+    或
+    setInterval(clock,1000)
+    ```
+
+    我们设置一个计时器，每隔100毫秒调用clock()函数，并将时间显示出来，**代码如下:**
+
+    ```html
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>计时器</title>
+    <script type="text/javascript">
+      var int=setInterval(clock, 100);
+      function clock(){
+        var time=new Date();
+        document.getElementById("clock").value = time;
+      }
+    </script>
+    </head>
+    <body>
+      <form>
+        <input type="text" id="clock" size="50"  />
+      </form>
+    </body>
+    </html>
+    ```
+
+  + clearInterval()
+
+    clearInterval() 方法可取消由 setInterval() 设置的交互时间。
+
+    **语法：**
+
+    ```javascript
+    clearInterval(id_of_setInterval)
+    ```
+
+    **参数说明:**
+    id_of_setInterval：由 setInterval() 返回的 ID 值。
+
+    每隔 100 毫秒调用 clock() 函数,并显示时间。当点击按钮时，停止时间,代码如下:
+
+    ```html
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>计时器</title>
+    <script type="text/javascript">
+       function clock(){
+          var time=new Date();                     
+          document.getElementById("clock").value = time;
+       }
+    // 每隔100毫秒调用clock函数，并将返回值赋值给i
+         var i=setInterval("clock()",100);
+    </script>
+    </head>
+    <body>
+      <form>
+        <input type="text" id="clock" size="50"  />
+        <input type="button" value="Stop" onclick="clearInterval(i)"  />
+      </form>
+    </body>
+    </html>
+    ```
+
+  + setTimeout()
+
+    setTimeout()计时器，在载入后延迟指定时间后,去执行一次表达式,仅执行一次。
+
+    **语法:**
+
+    ```javascript
+    setTimeout(代码,延迟时间);
+    ```
+
+    **参数说明：**
+
+    1. 要调用的函数或要执行的代码串。
+    2. 延时时间：在执行代码前需等待的时间，以毫秒为单位（1s=1000ms)。
+
+    当我们打开网页3秒后，在弹出一个提示框，**代码如下:**
+
+    ```html
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+    <script type="text/javascript">
+      setTimeout("alert('Hello!')", 3000 );
+    </script>
+    </head>
+    <body>
+    </body>
+    </html>
+    ```
+
+    当按钮start被点击时，setTimeout()调用函数，在5秒后弹出一个提示框。
+
+    ```html
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+    <script type="text/javascript">
+    function tinfo(){
+      var t=setTimeout("alert('Hello!')",5000);
+     }
+    </script>
+    </head>
+    <body>
+    <form>
+      <input type="button" value="start" onClick="tinfo()">
+    </form>
+    </body>
+    </html>
+    ```
+
+    要创建一个运行于无穷循环中的计数器，我们需要编写一个函数来调用其自身。在下面的代码，当按钮被点击后，输入域便从0开始计数。
+
+    （初始文本框无内容，再点击后开始从0开始计数）
+
+    ```html
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+    <script type="text/javascript">
+    var num=0;
+    function numCount(){
+     document.getElementById('txt').value=num;
+     num=num+1;
+     setTimeout("numCount()",1000);
+     }
+    </script>
+    </head>
+    <body>
+    <form>
+    <input type="text" id="txt" />
+    <input type="button" value="Start" onClick="numCount()" />
+    </form>
+    </body>
+    </html>
+    ```
+
+  + clearTimeout()
+
+    setTimeout()和clearTimeout()一起使用，停止计时器。
+
+    **语法:**
+
+    ```javascript
+    clearTimeout(id_of_setTimeout)
+    ```
+
+    **参数说明:**
+    **id_of_setTimeout：**由 setTimeout() 返回的 ID 值。该值标识要取消的延迟执行代码块。
+
+    下面的例子和上节的无穷循环的例子相似。唯一不同是，现在我们添加了一个 "Stop" 按钮来停止这个计数器：
+
+    ```html
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+    <script type="text/javascript">
+      var num=0,i;
+      function timedCount(){
+        document.getElementById('txt').value=num;
+        num=num+1;
+        i=setTimeout(timedCount,1000);
+      }
+        setTimeout(timedCount,1000);
+      function stopCount(){
+        clearTimeout(i);
+      }
+    </script>
+    </head>
+    <body>
+      <form>
+        <input type="text" id="txt">
+        <input type="button" value="Stop" onClick="stopCount()">
+      </form>
+    </body>
+    </html>
+    ```
+
++ 8-7 History对象
+
+  history对象记录了用户曾经浏览过的页面(URL)，并可以实现浏览器前进与后退相似导航的功能。
+
+  **注意:从窗口被打开的那一刻开始记录，每个浏览器窗口、每个标签页乃至每个框架，都有自己的history对象与特定的window对象关联。**
+
+  **语法：**
+
+  ```javascript
+  window.history.[属性|方法]
+  ```
+
+  **注意：**window可以省略。
+
+  **History 对象属性**
+
+  ![](http://img1.sycdn.imooc.com/53548c030001759e05840068.jpg)
+
+  **History 对象方法**
+
+  ![](http://img1.sycdn.imooc.com/53548c200001228206210123.jpg)
+
+  使用length属性，当前窗口的浏览历史总长度，**代码如下：**
+
+  ```html
+  <script type="text/javascript">
+    var HL = window.history.length;
+    document.write(HL); 
+  </script>
+  ```
+
+  + 返回前一个浏览的界面
+
+    back()方法，加载 history 列表中的前一个 URL。
+
+    **语法：**
+
+    ```javascript
+    window.history.back();
+    ```
+
+    比如，返回前一个浏览的页面，**代码如下：**
+
+    ```javascript
+    window.history.back();
+    ```
+
+    **注意：等同于点击浏览器的倒退按钮。**
+
+    back()相当于go(-1),**代码如下:**
+
+    ```javascript
+    window.history.go(-1);
+    ```
+
+  + 返回下一个浏览的界面
+
+    forward()方法，加载 history 列表中的下一个 URL。
+
+    如果倒退之后，再想回到倒退之前浏览的页面，则可以使用forward()方法,**代码如下:**
+
+    ```javascript
+    window.history.forward();
+    ```
+
+    **注意：等价点击前进按钮。**
+
+    forward()相当于go(1),**代码如下:**
+
+    ```javascript
+    window.history.go(1);
+    ```
+
+  + 返回浏览历史中的其他页面
+
+    go()方法，根据当前所处的页面，加载 history 列表中的某个具体的页面。
+
+    **语法：**
+
+    ```javascript
+    window.history.go(number);
+    ```
+
+    **参数：**
+
+    ![](http://img.mukewang.com/5354947e00011a9a06490153.jpg)
+
+    浏览器中，返回当前页面之前浏览过的第二个历史页面，**代码如下：**
+
+    ```javascript
+    window.history.go(-2);
+    ```
+
+    **注意：和在浏览器中单击两次后退按钮操作一样。**
+
+    同理，返回当前页面之后浏览过的第三个历史页面，**代码如下：**
+
+    ```javascript
+    window.history.go(3);
+    ```
+
++ 8-11 Location对象
+
+  location用于获取或设置窗体的URL，并且可以用于解析URL。
+
+  **语法:**
+
+  ```javascript
+  location.[属性|方法]
+  ```
+
+  **location对象属性图示:**
+
+  ![](http://img.mukewang.com/53605c5a0001b26909900216.jpg)
+
+  **location 对象属性：**
+
+  ![](http://img.mukewang.com/5354b1d00001c4ec06220271.jpg)
+
+  **location 对象方法:**
+
+  ![](http://img.mukewang.com/5354b1eb00016a2405170126.jpg)
+
++ 8-12 Navigator对象
+
+  Navigator 对象包含有关浏览器的信息，通常用于检测浏览器与操作系统的版本。
+
+  **对象属性:**
+
+  ![](http://img.mukewang.com/5354cff70001428b06880190.jpg)
+
+  查看浏览器的名称和版本，**代码如下:**
+
+  ```html
+  <script type="text/javascript">
+     var browser=navigator.appName;
+     var b_version=navigator.appVersion;
+     document.write("Browser name"+browser);
+     document.write("<br>");
+     document.write("Browser version"+b_version);
+  </script>
+  ```
+
+  + userAgent
+
+    返回用户代理头的字符串表示(就是包括浏览器版本信息等的字符串)
+
+    **语法**
+
+    ```javascript
+    navigator.userAgent
+    ```
+
+    几种浏览的user_agent.，像360的兼容模式用的是IE、极速模式用的是chrom的内核。
+
+    ![](http://img.mukewang.com/535a3a4a0001e03f06870189.jpg)
+
+    使用userAgent判断使用的是什么浏览器(假设使用的是IE8浏览器),**代码如下:**
+
+    ```javascript
+    function validB(){ 
+      var u_agent = navigator.userAgent; 
+      var B_name="Failed to identify the browser"; 
+      if(u_agent.indexOf("Firefox")>-1){ 
+          B_name="Firefox"; 
+      }else if(u_agent.indexOf("Chrome")>-1){ 
+          B_name="Chrome"; 
+      }else if(u_agent.indexOf("MSIE")>-1&&u_agent.indexOf("Trident")>-1){ 
+          B_name="IE(8-10)";  
+      }
+        document.write("B_name:"+B_name+"<br>");
+        document.write("u_agent:"+u_agent+"<br>"); 
+    } 
+    ```
+
+    **运行结果:**
+
+    ![](http://img.mukewang.com/535dea1e00017b0b06880265.jpg)
+
++ 8-14 screen对象
+
+  screen对象用于获取用户的屏幕信息。
+
+  **语法：**
+
+  ```javascript
+  window.screen.属性
+  ```
+
+  **对象属性:**
+
+  ![](http://img.mukewang.com/5354d2810001a47706210213.jpg)
+
+  + 屏幕分辨率的高和宽
+
+    window.screen 对象包含有关用户屏幕的信息。
+
+    1. screen.height 返回屏幕分辨率的高
+    2. screen.width 返回屏幕分辨率的宽
+
+    **注意:**
+
+    1. 单位以像素计。
+    2. window.screen 对象在编写时可以不使用 window 这个前缀。
+
+    我们来获取屏幕的高和宽，代码如下:
+
+    ```javascript
+    <script type="text/javascript">
+      document.write( "屏幕宽度："+screen.width+"px<br />" );
+      document.write( "屏幕高度："+screen.height+"px<br />" );
+    </script>
+    ```
+
+  + 屏幕可用高和宽
+
+    1. screen.availWidth 属性返回访问者屏幕的宽度，以像素计，减去界面特性，比如任务栏。
+
+    2. screen.availHeight 属性返回访问者屏幕的高度，以像素计，减去界面特性，比如任务栏。
+
+    **注意:**
+
+    不同系统的任务栏默认高度不一样，及任务栏的位置可在屏幕上下左右任何位置，所以有可能可用宽度和高度不一样。
+
+    我们来获取屏幕的可用高和宽度，**代码如下：**
+
+    ```javascript
+    <script type="text/javascript">
+    document.write("可用宽度：" + screen.availWidth);
+    document.write("可用高度：" + screen.availHeight);
+    </script>
+    ```
+
+    **注意:根据屏幕的不同显示值不同。**
+
++ 8-17 编程练习
+
+  制作一个跳转提示页面：
+
+  **要求：**
+
+  1. 如果打开该页面后，如果不做任何操作则5秒后自动跳转到一个新的地址，如慕课网主页。
+
+  2. 如果点击“返回”按钮则返回前一个页面。
+
+  **注意: 在窗口中运行该程序时，该窗口一定要有历史浏览记录，否则"返回"无效果。**
+
+  ```html
+  <!DOCTYPE html>
+  <html>
+   <head>
+    <title>浏览器对象</title>  
+    <meta http-equiv="Content-Type" content="text/html; charset=gkb"/>  
+    <style>
+        .czcg,#time{font-weight:bold;}
+    </style>
+  
+  <script type="text/javascript">  
+     function count(){
+         var time = document.getElementById('time');
+         if(time.innerHTML == 0){
+             window.location.href="http://www.baidu.com";
+         }else{
+             time.innerHTML = time.innerHTML-1;
+         }
+     }
+     window.setInterval("count()",1000);
+   </script> 
+  
+   </head>
+   <body>
+    <!--先编写好网页布局-->
+    <div class="czcg">操作成功</div><br/>
+    <div><span id="time">5</span>秒后回到主页 <a href="javascript:" onclick="history.go(-1)">返回</a></div>
+  </body>
+  </html>
+  ```
+
+  innerHTML在JS是双向功能：获取对象的内容  或  向对象插入内容；
+  如`<div id="aa">这是内容</div>`：
+
+  1. 我们可以通过 `document.getElementById('aa').innerHTML`来获取id为aa的对象的内嵌内容；
+  2. 也可以对某对象插入内容，如  `document.getElementById('abc').innerHTML='这是被插入的内容';` 这样就能向id为abc的对象插入内容。
+
+
+
 ### 9 DOM对象，控制HTML元素
+
++ 9-1 认识DOM
+
+  文档对象模型DOM（Document Object Model）定义访问和处理HTML文档的标准方法。DOM 将HTML文档呈现为带有元素、属性和文本的树结构（节点树）。
+
+  **先来看看下面代码:**
+
+  ![](http://img.mukewang.com/5375ca640001c67307860420.jpg)
+
+  **将HTML代码分解为DOM节点层次图:**
+
+  ![](http://img.mukewang.com/5375ca7e0001dd8d04830279.jpg)
+
+  **HTML**文档可以说由节点构成的集合，DOM节点有:
+
+  **1.** **元素节点：**上图中`<html>`、`<body>`、`<p>`等都是元素节点，即标签。
+
+  **2.** **文本节点：**向用户展示的内容，如`<li>...</li>`中的JavaScript、DOM、CSS等文本。
+
+  **3.** **属性节点：**元素属性，如`<a>`标签的链接属性href="http://www.imooc.com"。
+
+  **节点属性:**
+
+  ![](http://img.mukewang.com/5375c953000117ee05240129.jpg)
+
+  **遍历节点树:**
+
+  ![](http://img.mukewang.com/53f17a6400017d2905230219.jpg)
+
+  以上图ul为例，它的父级节点body,它的子节点3个li,它的兄弟结点h2、P。
+
+  **DOM操作:**
+
+  ![](http://img.mukewang.com/538d29da000152db05360278.jpg)
+
+  **注意:**前两个是document方法。
+
++ 9-2 getElementsByName()方法
+
+  返回带有指定名称的节点对象的集合。
+
+  **语法：**
+
+  ```javascript
+  document.getElementsByName(name)  // 不要漏了s
+  ```
+
+  与getElementById() 方法不同的是，通过元素的 name 属性查询元素，而不是通过 id 属性。
+
+  **注意:**
+
+  1. 因为文档中的 name 属性可能不唯一，所有 getElementsByName() 方法返回的是元素的数组，而不是一个元素。
+
+  2. 和数组类似也有length属性，可以和访问数组一样的方法来访问，从0开始。
+
+  **看看下面的代码:**
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <script type="text/javascript">
+  function getElements(){
+    var x = document.getElementsByName("alink");  
+    alert(x.length);
+  }
+  </script>
+  </head>
+  <body>
+    <a name="alink" href="#" />我是链接一</a><br />
+    <a name="alink" href="#" />我是链接一</a><br />
+    <a name="alink" href="#" />我是链接一</a><br />
+    <br />
+    <input type="button" onclick="getElements()" value="看看有几链接？" />
+  </body>
+  </html>
+  ```
+
+  **运行结果:**
+
+  ![](http://img.mukewang.com/53795f0b0001233404580318.jpg)
+
++ 9-3 getElementsByTagName()方法
+
+  返回带有指定标签名的节点对象的集合。返回元素的顺序是它们在文档中的顺序。
+
+  **语法:**
+
+  ```javascript
+  document.getElementsByTagName(Tagname)
+  ```
+
+  **说明:**
+
+  1. Tagname是标签的名称，如p、a、img等标签名。
+
+  2. 和数组类似也有length属性，可以和访问数组一样的方法来访问，所以从0开始。
+
+  看看下面代码，通过getElementsByTagName()获取节点。
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+    <head>
+      <title>JavaScript</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+      <p id="intro">我的课程</p>
+      <ul>
+        <li>JavaScript</li>
+        <li>JQuery</li>
+        <li>HTML</li>
+        <li>Java</li>
+        <li>Php</li>
+      </ul>
+      <script>
+        // 获取所有li的集合
+        var list = document.getElementsByTagName("li");
+        // 访问无序列表：[0]索引
+        li = list[0];
+        // 获取list的长度
+        document.write(list.length);
+        // 弹出li节点对象的内容
+        document.write(li.innerHTML);
+      </script>
+    </body>
+  </html>
+  ```
+
++ 9-4 区别getElementByID, getElementsByName, getElementsByTagName
+
+  **以人来举例说明，人有能标识身份的身份证，有姓名，有类别(大人、小孩、老人)等。**
+
+  1. ID 是一个人的身份证号码，是唯一的。所以通过getElementById获取的是指定的一个人。
+
+  2. Name 是他的名字，可以重复。所以通过getElementsByName获取名字相同的人集合。
+
+  3. TagName可看似某类，getElementsByTagName获取相同类的人集合。如获取小孩这类人，getElementsByTagName("小孩")。
+
+  **把上面的例子转换到HTML中，如下:**
+
+  ```javascript
+  <input type="checkbox" name="hobby" id="hobby1">  音乐
+  ```
+
+  input标签就像人的类别。
+
+  name属性就像人的姓名。
+
+  id属性就像人的身份证。
+
+  **方法总结如下:**
+
+  ![](http://img.mukewang.com/5405263300018bcf05760129.jpg)
+
+  **注意：**方法区分大小写
+
+  通过下面的例子(6个name="hobby"的复选项，两个按钮)来区分三种方法的不同:
+
+  ```
+    <input type="checkbox" name="hobby" id="hobby1">  音乐
+    <input type="checkbox" name="hobby" id="hobby2">  登山
+    <input type="checkbox" name="hobby" id="hobby3">  游泳
+    <input type="checkbox" name="hobby" id="hobby4">  阅读
+    <input type="checkbox" name="hobby" id="hobby5">  打球
+    <input type="checkbox" name="hobby" id="hobby6">  跑步 
+    <input type="button" value = "全选" id="button1">
+    <input type="button" value = "全不选" id="button1">
+  ```
+
+  1. document.getElementsByTagName("input")，结果为获取所有标签为input的元素，共8个。
+
+  2. document.getElementsByName("hobby")，结果为获取属性name="hobby"的元素，共6个。
+
+  3. document.getElementById("hobby6")，结果为获取属性id="hobby6"的元素，只有一个，"跑步"这个复选项。
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+          <title>无标题文档</title>
+      </head>
+      
+      <body>
+          <form>
+            请选择你爱好:<br>
+            <input type="checkbox" name="hobby" id="hobby1">  音乐
+            <input type="checkbox" name="hobby" id="hobby2">  登山
+            <input type="checkbox" name="hobby" id="hobby3">  游泳
+            <input type="checkbox" name="hobby" id="hobby4">  阅读
+            <input type="checkbox" name="hobby" id="hobby5">  打球
+            <input type="checkbox" name="hobby" id="hobby6">  跑步 <br>
+            <input type="button" value = "全选" onclick = "checkall();">
+            <input type="button" value = "全不选" onclick = "clearall();">
+            <p>请输入您要选择爱好的序号，序号为1-6:</p>
+            <input id="wb" name="wb" type="text" >
+            <input name="ok" type="button" value="确定" onclick = "checkone();">
+          </form>
+          <script type="text/javascript">
+          function checkall(){
+              var hobby = document.getElementsByTagName("input");
+              // 当点击"全选"按钮时，将选中所有的复选项。
+              for(i = 0;i < hobby.length;i++) {
+                  if(hobby[i].type == "checkbox") {
+                      hobby[i].checked = true;   
+                  }
+              }
+          }
+            
+          function clearall(){
+              var hobby = document.getElementsByName("hobby");
+              // 当点击"全不选"按钮时，将取消所有选中的复选项。    
+              for(i = 0;i < hobby.length;i++){
+                  hobby[i].checked = false;
+              }
+          }
+          
+          function checkone(){
+              var j=document.getElementById("wb").value;
+              // 在文本框中输入输入1-6数值，当点击"确定"按钮时，根据输入的数值，通过id选中相应的复选项。
+              var hobby = document.getElementById("hobby"+j);
+              hobby.checked = true;     
+          }
+          </script>
+      </body>
+  </html>
+  ```
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/jsa9-4-1.png)
+
++ 9-5 getAttribute()方法
+
+  通过元素节点的属性名称获取属性的值。
+
+  **语法：**
+
+  ```javascript
+  elementNode.getAttribute(name)
+  ```
+
+  **说明:**
+
+  1. elementNode：使用getElementById()、getElementsByTagName()等方法，获取到的元素节点。
+
+  2. name：要想查询的元素节点的属性名字
+
+  看看下面的代码，获取h1标签的属性值：
+
+  ![](http://img.mukewang.com/538d242700019ec809330432.jpg)
+
+  **运行结果:**
+
+  ```javascript
+  h1标签的ID ：alink
+  h1标签的title ：getAttribute()获取标签的属值
+  ```
+
++ 9-6 setAttribute()方法
+
+  setAttribute() 方法增加一个指定名称和值的新属性，或者把一个现有的属性设定为指定的值。
+
+  **语法：**
+
+  ```javascript
+  elementNode.setAttribute(name,value)
+  ```
+
+  **说明：**
+
+  1. name: 要设置的属性名。
+
+  2. value: 要设置的属性值。
+
+  **注意：**
+
+  1. 把指定的属性设置为指定的值。如果不存在具有指定名称的属性，该方法将创建一个新属性。
+
+  2. 类似于getAttribute()方法，setAttribute()方法只能通过元素节点对象调用的函数。
+
++ 9-7 节点属性
+
+  在文档对象模型 (DOM) 中，每个节点都是一个对象。DOM 节点有三个重要的属性 ：
+
+  1. nodeName : 节点的名称，是只读的。
+     + 元素节点的 nodeName 与标签名相同
+     + 属性节点的 nodeName 是属性的名称
+     + 文本节点的 nodeName 永远是 #text
+     + 文档节点的 nodeName 永远是 #document
+
+  2. nodeValue ：节点的值
+     + 元素节点的 nodeValue 是 undefined 或 null
+     + 文本节点的 nodeValue 是文本自身
+     + 属性节点的 nodeValue 是属性的值
+
+  3. nodeType ：节点的类型，是只读的。以下常用的几种结点类型:
+
+     | 元素类型 | 节点类型 |
+     | :------: | :------: |
+     |   元素   |    1     |
+     |   属性   |    2     |
+     |   文本   |    3     |
+     |   注释   |    8     |
+     |   文档   |    9     |
+
++ 9-8 访问子节点childNodes
+
+  访问选定元素节点下的所有子节点的列表，返回的值可以看作是一个数组，它具有length属性。
+
+  **语法：**
+
+  ```javascript
+  elementNode.childNodes
+  ```
+
+  **注意：**
+
+  如果选定的节点没有子节点，则该属性返回不包含节点的 NodeList。
+
+  **我们来看看下面的代码:**
+
+  ![](http://img.mukewang.com/538405fa00010e6c05630357.jpg)
+
+  **运行结果:**
+
+  **IE:**
+
+  ```javascript
+    UL子节点个数:3
+    节点类型:1
+  ```
+
+  **其它浏览器:**
+
+  ```javascript
+     UL子节点个数:7
+     节点类型:3
+  ```
+
+  **注意:**
+
+  1. IE全系列、firefox、chrome、opera、safari兼容问题
+
+  2. 节点之间的空白符，在firefox、chrome、opera、safari浏览器是文本节点，所以IE是3，其它浏览器是7，如下图所示:
+
+  ![](http://img.mukewang.com/538d2b8a000163e303430127.jpg)
+
+  **如果把代码改成这样:**
+
+  `<ul><li>javascript</li><li>jQuery</li><li>PHP</li></ul>`
+
+  **运行结果:（IE和其它浏览器结果是一样的）**
+
+  ```javascript
+    UL子节点个数:3
+    节点类型:1
+  ```
+
++ 9-9 访问子节点的第一和最后项
+
+  1. **`firstChild `**属性返回‘childNodes’数组的第一个子节点。如果选定的节点没有子节点，则该属性返回 NULL。
+
+     **语法：**
+
+     ```javascript
+     node.firstChild
+     ```
+
+     **说明：**与elementNode.childNodes[0]是同样的效果。 
+
+  2. **` lastChild`** 属性返回‘childNodes’数组的最后一个子节点。如果选定的节点没有子节点，则该属性返回 NULL。
+
+     **语法：**
+
+     ```javascript
+     node.lastChild
+     ```
+
+     **说明：**与elementNode.childNodes[elementNode.childNodes.length-1]是同样的效果。 
+
+  **注意:** 上一节中，我们知道Internet Explorer 会忽略节点之间生成的空白文本节点，而其它浏览器不会。我们可以通过检测节点类型，过滤子节点。 (以后章节讲解)
+
++ 9-10 访问父节点parentNode
+
+  获取指定节点的父节点
+
+  **语法：**
+
+  ```javascript
+  elementNode.parentNode
+  ```
+
+  **注意:父节点只能有一个。**
+
+  看看下面的例子,获取 P 节点的父节点，代码如下:
+
+  ```html
+  <div id="text">
+    <p id="con"> parentNode 获取指点节点的父节点</p>
+  </div> 
+  <script type="text/javascript">
+    var mynode= document.getElementById("con");
+    document.write(mynode.parentNode.nodeName);
+  </script>
+  ```
+
+  运行结果:
+
+  ```javascript
+  parentNode 获取指点节点的父节点
+  DIV
+  ```
+
+  **访问祖节点:**
+
+  ```javascript
+  elementNode.parentNode.parentNode
+  ```
+
+  看看下面的代码:
+
+  ```html
+  <div id="text">  
+    <p>
+      parentNode      
+      <span id="con"> 获取指点节点的父节点</span>
+    </p>
+  </div> 
+  <script type="text/javascript">
+    var mynode= document.getElementById("con");
+    document.write(mynode.parentNode.parentNode.nodeName);
+  </script>
+  ```
+
+  运行结果:
+
+  ```javascript
+  parentNode获取指点节点的父节点
+  DIV
+  ```
+
+  注意: 浏览器兼容问题，chrome、firefox等浏览器标签之间的空白也算是一个文本节点。
+
+  **试一试，通过获取的mylist节点，使用访问父节点parentNode，将"HTML/CSS"课程内容输出。**
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>无标题文档</title>
+  </head>
+  <body>
+  <ul id="con">
+  <li id="lesson1">javascript
+    <ul> 
+        <li id="tcon"> 基础语法</li>
+        <li>流程控制语句</li>
+        <li>函数</li>
+        <li>事件</li>
+        <li>DOM</li>
+    </ul>
+  </li>
+  <li id="lesson2">das</li>
+  <li id="lesson3">dadf</li>
+  <li id="lesson4">HTML/CSS 
+    <ul>
+      <li>文字</li>
+      <li>段落</li>
+      <li>表单</li>
+      <li>表格</li>  
+    </ul> 
+  </li></ul>  
+  <script  type="text/javascript">    
+     var mylist = document.getElementById("tcon");
+     // 关键！！！
+     document.write(mylist.parentNode.parentNode.parentNode.lastChild.innerHTML);
+  </script> 
+  </body>
+  </html>
+  ```
+
++ 9-11 访问兄弟节点
+
+  1. nextSibling 属性可返回某个节点之后紧跟的节点（处于同一树层级中）。
+
+     **语法：**
+
+     ```javascript
+     nodeObject.nextSibling
+     ```
+
+     **说明：**如果无此节点，则该属性返回 null。
+
+  2. previousSibling 属性可返回某个节点之前紧跟的节点（处于同一树层级中）。
+
+     **语法：**
+
+     ```javascript
+     nodeObject.previousSibling  
+     ```
+
+     **说明：**如果无此节点，则该属性返回 null。
+
+  注意: 两个属性获取的是节点。Internet Explorer 会忽略节点间生成的空白文本节点（例如，换行符号），而其它浏览器不会忽略。
+
+  **解决问题方法:**
+
+  判断节点nodeType是否为1, 如是为元素节点，跳过。
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>nextSibling</title>
+  </head>
+  <body>
+  <ul id="u1">   
+              <li id="a">javascript</li>   
+              <li id="b">jquery</li>   
+              <li id="c">html</li>   
+          </ul>   
+          <ul id="u2">   
+              <li id="d">css3</li>   
+              <li id="e">php</li>   
+              <li id="f">java</li>   
+          </ul>   
+  <script type="text/javascript">
+      function get_nextSibling(n){
+          var x=n.nextSibling;
+          while (x && x.nodeType!=1){
+              x=x.nextSibling;
+          }
+          return x;
+      }
+      
+      function get_previousSibling(n)
+      {
+          var x=n.previousSibling;
+          while (x && x.nodeType!=1)
+          {
+          x=x.previousSibling;
+          }
+          return x;
+      }
+  
+      var x=document.getElementsByTagName("li")[0];
+      document.write(x.nodeName);
+      document.write(" = ");
+      document.write(x.innerHTML);
+      
+      var y=get_nextSibling(x);
+      
+      if(y!=null){
+          document.write("<br />nextsibling: ");
+          document.write(y.nodeName);
+          document.write(" = ");
+          document.write(y.innerHTML);
+      }else{
+        document.write("<br>已经是最后一个节点");      
+      }
+  
+  </script>
+  </body>
+  </html>
+  ```
+
+  **运行结果:**
+
+  ```javascript
+  LI = javascript
+  nextsibling: LI = jquery
+  ```
+
++ 9-12 插入节点appendChild()
+
+  在指定节点的最后一个子节点列表之后添加一个新的子节点。
+
+  **语法:**
+
+  ```javascript
+  appendChild(newnode)
+  ```
+
+  **参数: **
+
+  newnode：指定追加的节点。
+
+  我们来看看，div标签内创建一个新的 P 标签，代码如下:
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>无标题文档</title>
+  </head>
+  <body>
+  <ul id="test">
+    <li>JavaScript</li>
+    <li>HTML</li>
+  </ul> 
+   
+  <script type="text/javascript">
+    var otest = document.getElementById("test");  
+    var newnode = document.createElement("li");
+    otest.appendChild(newnode);        
+  </script> 
+  
+  </body>
+  </html>
+  ```
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/jsa9-12-1.png)
+
++ 9-13 插入节点insertBefore()
+
+  insertBefore() 方法可在已有的子节点前插入一个新的子节点。
+
+  **语法:**
+
+  insertBefore(newnode,node);
+
+  **参数:**
+
+  newnode: 要插入的新节点。
+
+  node: 指定此节点前插入节点。
+
+  我们在来看看下面代码，在指定节点前插入节点。
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>无标题文档</title>
+  </head>
+  <body>
+  
+  <ul id="test"><li>JavaScript</li><li>HTML</li></ul> 
+   
+  <script type="text/javascript">
+  
+    var otest = document.getElementById("test");  
+    var newnode = document.createElement("li");
+    newnode.innerHTML = "PHP";  
+    otest.insertBefore(newnode,otest.childNodes[1]); 
+  </script> 
+  
+  </body>
+  </html>
+  ```
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/jsa9-13-1.png)
+
++ 9-14 删除节点removeChild()
+
+  removeChild() 方法从子节点列表中删除某个节点。如删除成功，此方法可返回被删除的节点，如失败，则返回 NULL。
+
+  **语法:**
+
+  ```javascript
+  nodeObject.removeChild(node)
+  ```
+
+  **参数:**
+
+  node ：必需，指定需要删除的节点。
+
+  我们来看看下面代码，删除子点。
+
+  ![](http://img.mukewang.com/5399744d000153a306060342.jpg)
+
+  **运行结果:**
+
+  ```javascript
+  HTML
+  删除节点的内容: javascript
+  ```
+
+  **注意:** 把删除的子节点赋值给 x，这个子节点不在DOM树中，但是还存在内存中，可通过 x 操作。
+
+  如果要完全删除对象，给 x 赋 null 值，代码如下:
+
+  ![](http://img.mukewang.com/539975a800017c8e04790082.jpg)
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>无标题文档</title>
+  </head>
+  
+  <body>
+  <div id="content">
+    <h1>html</h1>
+    <h1>php</h1>
+    <h1>javascript</h1>
+    <h1>jquery</h1>
+    <h1>java</h1>
+  </div>
+  
+  <script type="text/javascript">
+  function clearText() {
+    var content=document.getElementById("content");
+    // 在此完成该函数
+    for(var i=content.childNodes.length-1;i>=0;i--){
+       var childNode = content.childNodes[i];
+       content.removeChild(childNode);
+    }
+  }
+  </script>
+  <button onclick="clearText()">清除节点内容</button>
+  </body>
+  </html>
+  ```
+
++ 9-15 替换元素节点replaceChild()
+
+  replaceChild 实现子节点(对象)的替换。返回被替换对象的引用。 
+
+  **语法：**
+
+  ```javascript
+  node.replaceChild (newnode,oldnew ) 
+  ```
+
+  **参数：**
+
+  newnode : 必需，用于替换 oldnew 的对象。 
+  oldnew : 必需，被 newnode 替换的对象。
+
+  我们来看看下面的代码:
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>无标题文档</title>
+  </head>
+  <body>
+    <div><b id="oldnode">JavaScript</b>是一个很常用的技术，为网页添加动态效果。</div>
+    <a href="javascript:replaceMessage()"> 将加粗改为斜体</a>
+    <script type="text/javascript">
+      function replaceMessage(){
+        var oldnode=document.getElementById("oldnode");
+        var oldHTML= oldnode.innerHTML;           
+        var newnode=document.createElement("i");         
+        oldnode.parentNode.replaceChild(newnode,oldnode);
+        newnode.innerHTML=oldHTML;
+      }    
+    </script>
+   </body>
+  </html> 
+  ```
+
+  效果: 将文档中的b标签改为i标签。
+
+  **注意:** 
+
+  1. 当 oldnode 被替换时，所有与之相关的属性内容都将被移除。 
+
+  2. newnode 必须先被建立。 
+
++ 9-16 创建元素节点createElement()
+
+  createElement()方法可创建元素节点。此方法可返回一个 Element 对象。
+
+  **语法：**
+
+  ```javascript
+  document.createElement(tagName)
+  ```
+
+  **参数:**
+
+  tagName：字符串值，这个字符串用来指明创建元素的类型。
+
+  **注意：**要与appendChild() 或 insertBefore()方法联合使用，将元素显示在页面中。
+
+  我们来创建一个按钮，代码如下：
+
+  ```html
+  <script type="text/javascript">
+     var body = document.body; 
+     var input = document.createElement("input");  
+     input.type = "button";  
+     input.value = "创建一个按钮";  
+     body.appendChild(input);  
+   </script>  
+  ```
+
+  效果：在HTML文档中，创建一个按钮。
+
+  我们也可以使用setAttribute来设置属性，代码如下：
+
+  ```html
+  <script type="text/javascript">  
+     var body= document.body;             
+     var btn = document.createElement("input");  
+     btn.setAttribute("type", "text");  
+     btn.setAttribute("name", "q");  
+     btn.setAttribute("value", "使用setAttribute");  
+     btn.setAttribute("onclick", "javascript:alert('This is a text!');");       
+     body.appendChild(btn);  
+  </script>  
+  ```
+
+  效果：在HTML文档中，创建一个文本框，使用setAttribute设置属性值。 当点击这个文本框时，会弹出对话框“This is a text!”。
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>无标题文档</title>
+  </head>
+  <body>
+  <script type="text/javascript">
+  var body = document.body;
+  //创建链接
+  function createa(url,text)
+  {
+      var a = document.createElement("a");
+      a.href = url;
+      a.innerHTML = text;
+      a.style.color = "red";
+      body.appendChild(a);
+  }
+  // 调用函数创建链接
+  createa("http://www.imooc.com/","慕课网");
+  </script> 
+  </body>
+  </html>
+  ```
+
++ 9-17 创建文本节点createTextNode()
+
+  createTextNode() 方法创建新的文本节点，返回新创建的 Text 节点。
+
+  **语法：**
+
+  ```javascript
+  document.createTextNode(data)
+  ```
+
+  **参数：**
+
+  data : 字符串值，可规定此节点的文本。
+
+  我们来创建一个`<p>`元素并向其中添加一条消息，代码如下：
+
+  ```html
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>无标题文档</title>
+  <style type="text/css">
+  
+  .message{    
+  	width:200px;
+  	height:100px;
+  	background-color:#CCC;}
+  	
+  </style>
+  </head>
+  <body>
+  <script type="text/javascript">
+     var element = document.createElement("p");
+     element.className = "message";
+     var textNode = document.createTextNode("Hello World!");
+     element.appendChild(textNode);
+     document.body.appendChild(element);
+  </script> 
+  </body>
+  </html>
+  ```
+
+  **运行结果:**
+
+  ![](http://img.mukewang.com/53951c720001996d04080225.jpg)
+
++ 9-18 浏览器窗口可视区域大小
+
+  获得浏览器窗口的尺寸（浏览器的视口，不包括工具栏和滚动条）的方法:
+
+  1. **对于IE9+、Chrome、Firefox、Opera 以及 Safari：**
+     + window.innerHeight - 浏览器窗口的内部高度
+     + window.innerWidth - 浏览器窗口的内部宽度
+
+  2. **对于 Internet Explorer 8、7、6、5：**
+
+     + document.documentElement.clientHeight表示HTML文档所在窗口的当前高度。
+
+     + document.documentElement.clientWidth表示HTML文档所在窗口的当前宽度
+
+       或者：Document对象的body属性对应HTML文档的`<body>`标签
+
+     + document.body.clientHeight
+
+     + document.body.clientWidth
+
+  **在不同浏览器都实用的 JavaScript 方案：**
+
+  ```javascript
+  var w= document.documentElement.clientWidth
+        || document.body.clientWidth;
+  var h= document.documentElement.clientHeight
+        || document.body.clientHeight;
+  ```
+
++ 9-19 网页尺寸scrollHeight
+
+  scrollHeight和scrollWidth，获取网页内容高度和宽度。
+
+  1. **针对IE、Opera:**
+
+     scrollHeight 是网页内容实际高度，可以小于 clientHeight。
+
+  2. **针对NS、FF:**
+
+     scrollHeight 是网页内容高度，不过最小值是 clientHeight。也就是说网页内容实际高度小于 clientHeight 时，scrollHeight 返回 clientHeight 。
+
+  **在不同浏览器都实用的 JavaScript 方案：**
+
+  ```javascript
+  var w=document.documentElement.scrollWidth
+     || document.body.scrollWidth;
+  var h=document.documentElement.scrollHeight
+     || document.body.scrollHeight;
+  ```
+
+  **注意:区分大小写**
+
+  scrollHeight和scrollWidth还可获取Dom元素中内容实际占用的高度和宽度。
+
++ 9-20 网页尺寸offsetHeight
+
+  offsetHeight和offsetWidth，获取网页内容高度和宽度(包括滚动条等边线，会随窗口的显示大小改变)。
+
+  1. **值**
+
+     offsetHeight = clientHeight + 滚动条 + 边框。
+
+  ****在不同浏览器都实用的 JavaScript 方案：****
+
+  ```javascript
+  var w= document.documentElement.offsetWidth
+      || document.body.offsetWidth;
+  var h= document.documentElement.offsetHeight
+      || document.body.offsetHeight;
+  ```
+
++ 9-21 网页卷去的距离与偏移量
+
+  **我们先来看看下面的图：**
+
+  ![](http://img.mukewang.com/5347b2b10001e1a307520686.jpg)
+
+  **scrollLeft:** 设置或获取位于给定对象左边界与窗口中目前可见内容的最左端之间的距离 ，即左边灰色的内容。
+
+  **scrollTop:** 设置或获取位于对象最顶端与窗口中可见内容的最顶端之间的距离 ，即上边灰色的内容。
+
+  **offsetLeft:** 获取指定对象相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置 。
+
+  **offsetTop:** 获取指定对象相对于版面或由 offsetParent 属性指定的父坐标的计算顶端位置 。
+
+  **注意:**
+
+  1. 区分大小写
+
+  2. offsetParent：布局中设置postion属性(Relative、Absolute、fixed)的父容器，从最近的父节点开始，一层层向上找，直到HTML的body。
+
+  ```html
+  <!DOCTYPE HTML>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script type="text/javascript">
+    function req(){
+      var div = document.getElementById("div1");
+      document.getElementById("li1").innerHTML = (div.offsetTop)+"px";//div1距离屏幕顶部的距离
+      document.getElementById("li2").innerHTML = (div.offsetLeft)+"px";//div1距离屏幕左部的距离
+      document.getElementById("li3").innerHTML = (div.scrollTop)+"px";//div1纵向滚动条滚动的距离
+      document.getElementById("li4").innerHTML = (div.scrollLeft)+"px";//div1横向滚动条滚动的距离
+    }
+  </script>
+  </head>
+  <body style="border:10px solid #ccc;padding:0px 0px;margin:5px 10px">
+    <div style="width:60%;border-right:1px dashed red;float:left;">
+      <div style="float:left;">
+        <div id="div1" style="border:5px red solid;height:300px;width:200px;overflow:auto">
+          <div style="height:500px;width:400px">请调整横竖滚动条后，点击按钮后查看offsetTop、offsetLeft、scrollTop、scrollLeft值。</div>
+        </div>
+        <input type="button" value="点击我!" onclick="req()" style="border: 1px solid purple;height: 25px;"/>
+      </div> 
+    </div>
+    <div style="width:30%;float:left;">
+      <ul style="list-style-type: none; line-height:30px;">结果：
+        <li>offsetTop : <span id="li1"></span></li>
+        <li>offsetLeft : <span id="li2"></span></li>
+        <li> scrollTop : <span id="li3"></span></li>
+        <li>scrollLeft : <span id="li4"></span></li>
+      </ul>     
+    </div>
+    <div style="clear:both;"></div>    
+  </body>
+  </html>
+  ```
+
+  ![](/Users/shanyonghao/Desktop/Front-End/note-images/jsa9-21.png)
+
++ 9-22 编程练习
+
+  
 
 ### 10 编程挑战
 

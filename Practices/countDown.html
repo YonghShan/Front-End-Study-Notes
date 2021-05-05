@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>浏览器对象</title>  
+  <meta http-equiv="Content-Type" content="text/html; charset=gkb"/>  
+  <style>
+      .czcg,#time{font-weight:bold;}
+  </style>
+
+<script type="text/javascript">  
+   function count(){
+       var time = document.getElementById('time');
+       if(time.innerHTML == 0){
+           window.location.href="http://www.baidu.com";
+       }else{
+           time.innerHTML = time.innerHTML-1;
+       }
+   }
+   window.setInterval("count()",1000);
+ </script> 
+
+ </head>
+ <body>
+  <!--先编写好网页布局-->
+  <div class="czcg">操作成功</div><br/>
+  <div><span id="time">5</span>秒后回到主页 <a href="javascript:" onclick="history.go(-1)">返回</a></div>
+</body>
+</html>
