@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="topright">
+            <div class="googleapps" onclick="addgrid()">
+                <img src="/img/9dots.png" alt="HTML5" style="width:23px;height:23px;position:relative;top:1px;left:1px;" />
+            </div>
+        </div>
+        <div class="appspopup" id="appslistshow">
+            <!-- JavaScript代码插入 -->
+        </div>
+    </div>
+    <script>
+        function appslistshow() {
+                var popup = document.getElementById("appslistshow");
+                popup.classList.toggle("show");
+        }
+        function addgrid() {
+            var a = document.createElement('div');
+            a.className = 'partigrid';
+            a.id = 'parti';
+
+            var b = document.createElement('div');
+            b.className = 'seperateline';
+
+            var c = document.createElement('div');
+            c.className = 'partiigrid';
+            c.id = 'partii';
+
+            var d = document.createElement('div');
+            d.className = 'button';
+            var da = document.createElement('a');
+            da.innerText = 'More from Google';
+            d.appendChild(da);
+
+            var container = document.getElementById('appslistshow');
+            container.appendChild(a);
+            container.appendChild(b);
+            container.appendChild(c);
+            container.appendChild(d);
+
+            for (var i=0; i<16; i++) {
+                var grid = document.createElement('div');
+                var img = document.createElement("img");
+                img.src = "./img/youtubelogo.png";
+                img.alt = "HTML5";
+                img.style = "width:40px;height:40px";
+                var p = document.createElement('p');
+                /*var text = document.createTextNode('name'); 
+                a.appendChild('text'); */
+                p.innerText = 'name';
+                grid.appendChild(img);
+                grid.appendChild(p);
+                var target = document.getElementById('parti')
+                target.appendChild(grid);
+            }
+            for (var i=0; i<17; i++) {
+                var grid = document.createElement('div');
+                var img = document.createElement("img");
+                img.src = "./img/youtubelogo.png";
+                img.alt = "HTML5";
+                img.style = "width:40px;height:40px";
+                var p = document.createElement('p');
+                /*var text = document.createTextNode('name'); 
+                a.appendChild('text'); */
+                p.innerText = 'name';
+                grid.appendChild(img);
+                grid.appendChild(p);
+                var target = document.getElementById('partii')
+                target.appendChild(grid);
+            }
+
+            var ainfo = document.createElement('div');
+            ainfo.className = 'accountinfo';
+            ainfo.id = 'infoshow';
+            var ainfop1 = document.createElement('p');
+            ainfop1.innerText = 'Username: xxxxxx';
+            var ainfop2 = document.createElement('p');
+            ainfop2.innerText = 'Email: xxxxx@gmail.com';
+            ainfo.appendChild(ainfop1);
+            ainfo.appendChild(ainfop2);
+            container.appendChild(ainfop);
+        }
+    </script>    
+</body>
+</html>
