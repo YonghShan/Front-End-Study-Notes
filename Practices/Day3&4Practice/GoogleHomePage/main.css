@@ -90,7 +90,7 @@ header {
     box-shadow: 1px 1px 1px 1px rgba(51, 51, 51, .25);
     font-size: 14px;
     background-color: white;
-    /*visibility: hidden;*/
+    visibility: hidden;
 }
 
 .appspopup.show {
