@@ -35,7 +35,7 @@
                     var popup = document.getElementById("appslistshow");
                     popup.classList.toggle("show");
             }
-
+            
             function addgrid() {
                 var a = document.createElement('div');
                 a.className = 'partigrid';
@@ -72,6 +72,7 @@
                 container.appendChild(d);
                 container.appendChild(ainfo);
 
+                var arr = ['Account', 'Search', 'Map', 'Youtube', 'Play', 'News', 'Gmail', 'News', 'Meet', 'Chat', 'Contacts', 'Drive', 'Calendar', 'Translate', 'Photo', 'Duo']
                 for (var i=0; i<16; i++) {
                     var grid = document.createElement('div');
                     if (i==0) {
@@ -88,12 +89,14 @@
                     var p = document.createElement('p');
                     /*var text = document.createTextNode('name'); 
                     a.appendChild('text'); */
-                    p.innerText = 'name';
+                    p.innerText = arr[i];
                     grid.appendChild(img);
                     grid.appendChild(p);
                     var target = document.getElementById('parti')
                     target.appendChild(grid);
                 }
+
+                var arr2 = ['Finance', 'Docs', 'Sheets', 'Slides', 'Books', 'Blogger', 'Handouts', 'Keep', 'Jamboard', 'Earth', 'Collections', 'Arts and C...', 'Google Ads', 'podcasts', 'Stadia', 'Travel', 'Forms']
                 for (var i=0; i<17; i++) {
                     var grid = document.createElement('div');
                     var img = document.createElement("img");
@@ -103,7 +106,7 @@
                     var p = document.createElement('p');
                     /*var text = document.createTextNode('name'); 
                     a.appendChild('text'); */
-                    p.innerText = 'name';
+                    p.innerText = arr2[i];
                     grid.appendChild(img);
                     grid.appendChild(p);
                     var target = document.getElementById('partii')
