@@ -1,0 +1,265 @@
+body {
+	overflow: hidden;
+	min-width: 50px;
+}
+
+* {
+	margin: 0;
+	font-family:"Microsoft Yahei";
+	color: #666;
+}
+
+#header {
+	height: 120px;
+	width: 98%;
+    margin: 0 auto;
+}
+
+#main {
+    margin: 0 auto;
+	height: 500px;
+	width: 98%;
+	border: 1px black solid;
+	overflow: auto;
+}
+
+#bottom {
+	line-height: 50px;
+	width: 100%;
+	text-align: center;
+}
+
+/*登录页面CSS样式  */
+
+#login_header{
+	height: 82px;
+}
+
+.logo_img {
+	width: 164px;
+	height: 82px;
+	/* margin-left: 2%; */
+}
+
+.login_banner{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 500px;
+	width: 100%;
+	background-color: #219975;
+}
+
+.l_content {
+	height: 100%;
+	width: 100%;
+}
+
+.login_word {
+	width: 200px;
+	line-height: 50px;
+	margin-left: 0 auto;
+	color: white;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 225px auto;
+}
+
+#content {
+	height:100%;
+	width: 100%;
+}
+
+.login_form{
+	height:240px;
+	width:406px;
+	margin: 130px auto;
+	background-color: #fff;
+}
+
+.login_box{
+	height: 260px;
+	width: 366px;
+	margin: 28px auto;
+}
+
+.login_box div {
+	margin: 10px;
+}
+
+h1 {
+	font-size: 20px;
+}
+
+.msg_cont{
+	background: none repeat scroll 0 0 #fff6d2;
+    border: 1px solid #ffe57d;
+    color: #666;
+    height: 18px;
+    line-height: 18px;
+    padding: 3px 10px 3px 40px;
+    position: relative;
+    border: none;
+}
+
+.msg_cont b {
+	background: url("../img/pwd-icons-new.png") no-repeat scroll -104px -22px rgba(0, 0, 0, 0);
+    display: block;
+    height: 17px;
+    left: 10px;
+    margin-top: -8px;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    width: 16px;
+}
+
+.form .itxt {
+    border: 0 none;
+    float: none;
+    font-family: "宋体";
+    font-size: 14px;
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 10px 0 10px 10px;
+    width: 220px;
+    border: 1px #e3e3e3 solid;
+}
+
+#sub_btn{
+	background-color: #39987c;
+	border: none;
+	color: #fff;
+	width: 345px;
+	height: 40px;
+	cursor: pointer;
+}
+
+#l_content {
+	float: left;
+	margin-top: 150px;
+	margin-left: 300px;
+}
+
+#l_content span {
+	font-size: 60px;
+	color: white;
+}
+
+.tit h1 {
+	float: left;
+	margin-top: 5px;
+}
+
+.tit a {
+	float: right;
+	margin-left: 10px;
+	margin-top: 10px;
+	color: red;
+	text-decoration: none;
+}
+
+.tit .errorMsg {
+	float: right;
+	margin-left: 10px;
+	margin-top: 10px;
+	color: red;
+}
+
+.tit {
+	height: 30px;
+}
+
+
+/*主页面CSS样式  */
+.tabs {
+    display: flex;
+    justify-content: space-between;
+}
+.tabbutton {
+    width: 100px;
+    line-height: 25px;
+    text-align: center;
+    color: white;
+    margin: 5px 100px;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: #219975;
+    background-color: #219975;
+    cursor: pointer;
+}
+
+.tabbutton:hover {
+	opacity:0.7;
+    filter:alpha(opacity=70);
+}
+
+.Popup {
+    position: absolute;
+    top: 30%;
+	left: 40%;
+    z-index: 9;
+    width: 300px;
+    line-height: 40px;
+    margin: 0 1.5em 0 0;
+    border: 1px solid gray;
+    font-size: 15px;
+    color: gray;
+    background-color: white;
+    display:none;
+
+	text-align: center;
+}
+
+.insert {
+	margin: 0 auto;
+	width: 95%;
+}
+
+.txt {
+    border: 0 none;
+    float: none;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 12px;
+    overflow: hidden;
+    padding: 10px 0 10px 10px;
+    width: 190px;
+    border: 1px #e3e3e3 solid;
+}
+
+.subbut {
+    width: 100px;
+    line-height: 25px;
+    text-align: center;
+    color: white;
+    margin: 5px 10px;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: #219975;
+    background-color: #219975;
+    cursor: pointer;
+}
+
+.subbut:hover {
+	opacity:0.7;
+    filter:alpha(opacity=70);
+}
+
+.record{
+    margin: 0 1% 0 1%;
+    height: 387px;
+    overflow-y: scroll;
+}
+
+.record table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.record td {
+    border-bottom: 1px solid black;
+    height: 50px;
+    padding-left: 10px;
+}

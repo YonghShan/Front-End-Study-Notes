@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>家庭理财系统主页面</title>
+    <link type="text/css" rel="stylesheet" href="style.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#updatePwdButton").click(function(){
+                $("#updatePwdPopup").toggle();
+            });
+            $("#cancelUpdatePwdButton").click(function(){
+                $("#updatePwdPopup").hide();
+            });
+
+            $("#updateDataButton").click(function(){
+                $("#updateIdxPopup").toggle();
+                var idx = $("#idxInput").val();
+                $("#idx").text(idx);
+            });
+
+            $("#confirmUpdateDataButton").click(function(){
+                var idx = $("#idxInput").val();
+                alert(idx);
+                $("#updateDataPopup").show();
+            });
+            $("#cancelUpdateDataButton").click(function(){
+                $("#updateDataPopup").hide();
+            });
+
+            $("#deleteDataButton").click(function(){
+                $("#deleteDataPopup").toggle();
+            });
+            $("#cancelDeleteDataButton").click(function(){
+                $("#deleteDataPopup").hide();
+            });
+
+            $("#summaryButton").click(function(){
+                $("#summaryPopup").toggle();
+            });
+            $("#confirmButton").click(function(){
+                $("#summaryPopup").hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="header">
+        <img class="logo_img" alt="" src="static/img/logo.png" >
+        <span class="wel_word"></span>
+        <div>
+            <span>欢迎<span class="um_span">zny</span>光临家庭理财系统</span>
+            <a href="index.html">注销</a>&nbsp;&nbsp;
+            <a href="index.html">返回</a>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="tabs">
+            <div class="updatePwd">
+                <div class="tabbutton" id="updatePwdButton">修改密码</div>
+                <div class="Popup" id="updatePwdPopup">
+                    <form action="updatePwd" method="post">
+                        <p>请输入新的密码:</p>
+                        <input type="password" autocomplete="off" tabindex="1" name="newpwd"/>
+                        <br/>
+                        <input type="submit" value="确定" />
+                    </form>
+                    <button id="cancelUpdatePwdButton">取消</button>
+                </div>
+            </div>
+            <div class="updateData">
+                <div class="tabbutton" id="updateDataButton">修改数据</div>
+                <div class="Popup" id="updateIdxPopup">
+                    <label>请输入需要修改的行序号</label>
+                    <input class="txt" type="text" name="updateIdx" id="idxInput" />
+                    <button id="confirmUpdateDataButton">确定</button>
+                </div>
+                <div class="Popup" id="updateDataPopup">
+                    <form action="updateData" method="post">
+                        <p>将第<span id="idx"></span>行的信息修改为:</p>
+                        <label>收入</label>
+                        <input class="txt" type="text" placeholder="0"
+                            autocomplete="off" tabindex="1" name="updateIncome"/>
+                        <span>元</span>
+                        <br/>
+
+                        <label>支出</label>
+                        <input class="txt" type="text" placeholder="0"
+                            autocomplete="off" tabindex="1" name="updateExpenditure" />
+                        <span>元</span>
+                        <br/>
+
+                        <label>时间</label>
+                        <input class="txt" type="text" placeholder="YYYY-MM-DD"
+                            autocomplete="off" tabindex="1" name="updateDate" />
+                        <br/>
+
+                        <label>备注</label>
+                        <input class="txt" type="text" 
+                            autocomplete="off" tabindex="1" name="updateComment" />
+                        <br/>
+                        <input type="submit" value="确定" />
+                    </form>
+                    <button id="cancelUpdateDataButton">取消</button>
+                </div>
+            </div>
+            <div class="deleteData">
+                <div class="tabbutton" id="deleteDataButton">删除数据</div>
+                <div class="Popup" id="deleteDataPopup">
+                    <form action="deleteData" method="post">
+                        <p>请输入需要删除的行号:</p>
+                        <input type="text" autocomplete="off" tabindex="1" name="deleteIdx"/>
+                        <br/>
+                        <input type="submit" value="确定" />
+                    </form>
+                    <button id="cancelDeleteDataButton">取消</button>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="tabbutton" id="summaryButton">财务统计</div>
+                <div class="Popup" id="summaryPopup">
+                    <p>您的余额为：</p>
+                    <p class="balance"></p>
+                    <button id="confirmButton">确定</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="insert">
+            <form action="insertDataServlet" method="post">
+                <label>收入</label>
+                <input class="txt" type="text" placeholder="0"
+                    autocomplete="off" tabindex="1" name="income"/>
+                <span>元</span>
+                &nbsp;&nbsp;
+
+                <label>支出</label>
+                <input class="txt" type="text" placeholder="0"
+                    autocomplete="off" tabindex="1" name="expenditure" />
+                <span>元</span>
+                &nbsp;&nbsp;
+
+                <label>时间</label>
+                <input class="txt" type="text" placeholder="YYYY-MM-DD"
+                    autocomplete="off" tabindex="1" name="date" />
+                &nbsp;&nbsp;
+
+                <label>备注</label>
+                <input class="txt" type="text" 
+                    autocomplete="off" tabindex="1" name="comment" />
+                &nbsp;&nbsp;
+                
+                <input type="submit" value="添加记录" class="subbut" />
+            </form>
+        </div>
+
+        <div class="record" >
+            <table>
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>收入</td>
+                        <td>支出</td>
+                        <td>时间</td>
+                        <td>备注</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--automatically generated by JavaScript-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="bottom">
+        <span>幸福之家 - 家庭理财系统</span>
+    </div>
+</body>
+</html>
